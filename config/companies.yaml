@@ -1,0 +1,14 @@
+# Add or remove companies and URLs here. A company may have any number of URLs.
+companies:
+  - name: Razorpay
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited
+
+  - name: Example Lever Company
+    priority: NORMAL
+    enabled: false
+    urls:
+      - url: https://jobs.lever.co/your-company-slug
+

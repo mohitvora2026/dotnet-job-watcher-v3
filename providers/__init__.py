@@ -1,0 +1,2 @@
+"""Public job board adapters."""
+
