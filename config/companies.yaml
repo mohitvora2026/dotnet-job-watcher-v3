@@ -1,14 +1,176 @@
 # Add or remove companies and URLs here. A company may have any number of URLs.
 companies:
+  - name: Accenture
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.accenture.com/us-en/careers
+
+  - name: Cognizant
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://careers.cognizant.com/global/en/
+
+  - name: Infosys
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.infosys.com/careers/apply.html
+
+  - name: Tata Consultancy Services
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.tcs.com/careers?country=IN&lang=EN
+
+  - name: Capgemini
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.capgemini.com/careers/
+
+  - name: Wipro
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://careers.wipro.com/
+
+  - name: Tech Mahindra
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://careers.techmahindra.com/
+
+  - name: LTIMindtree
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.ltimindtree.com/careers/
+
+  - name: HCLTech
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.hcltech.com/careers
+
+  - name: IBM India
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.ibm.com/careers
+
+  - name: Oracle India
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.oracle.com/careers/
+
+  - name: SAP Labs India
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.sap.com/india/about/careers.html
+
+  - name: EPAM Systems
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.epam.com/careers
+
+  - name: Nagarro
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.nagarro.com/en/careers
+
+  - name: Deloitte India
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.deloitte.com/in/en/careers.html
+
+  - name: PwC India
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.pwc.in/careers.html
+
+  - name: EY India
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.ey.com/en_in/careers
+
+  - name: KPMG India
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://kpmg.com/in/en/careers.html
+
+  - name: CGI
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.cgi.com/en/careers
+
+  - name: Mphasis
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.mphasis.com/home/careers.html
+
+  - name: Persistent Systems
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.persistent.com/careers/
+
+  - name: Birlasoft
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.birlasoft.com/careers
+
+  - name: Coforge
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.coforge.com/careers
+
+  - name: Hexaware
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://hexaware.com/careers/
+
+  - name: Sonata Software
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.sonata-software.com/careers
+
+  - name: Zensar Technologies
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.zensar.com/careers
+
+  - name: CitiusTech
+    priority: HIGH
+    enabled: true
+    urls:
+      - url: https://www.citiustech.com/careers
+
   - name: Razorpay
     priority: HIGH
     enabled: true
     urls:
       - url: https://job-boards.greenhouse.io/razorpaysoftwareprivatelimited
 
+  # Example of a second source URL for the same company. Add actual company URLs here.
   - name: Example Lever Company
     priority: NORMAL
     enabled: false
     urls:
       - url: https://jobs.lever.co/your-company-slug
-
