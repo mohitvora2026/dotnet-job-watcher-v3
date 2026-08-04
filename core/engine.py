@@ -16,11 +16,14 @@ from utils.models import Company, Job, SourceUrl
 class Engine:
     def __init__(self) -> None:
         http = HttpClient()
-        self.registry, self.notifier = ProviderRegistry(http), TelegramNotifier(http)
+        self.registry = ProviderRegistry(http)
+        self.notifier = TelegramNotifier(http)
         self.seen = self._load_state()
 
     def run(self) -> int:
-        matches = fetched = sources_checked = 0
+        matches = 0
+        fetched = 0
+        sources_checked = 0
 
         for company in self.load_companies():
             if not company.enabled:
@@ -47,6 +50,14 @@ class Engine:
         if not settings.dry_run:
             self._save_state()
 
+        # Always send a status message after the run
+        self.notifier.send_status(
+            matches=matches,
+            dry_run=settings.dry_run,
+            fetched=fetched,
+            sources_checked=sources_checked,
+        )
+
         print(
             f"INFO: Checked {sources_checked} source(s), "
             f"fetched {fetched} job(s), "
@@ -58,13 +69,19 @@ class Engine:
         return matches
 
     @staticmethod
-    def load_companies(path: Path = Path("config/companies.yaml")) -> list[Company]:
+    def load_companies(
+        path: Path = Path("config/companies.yaml"),
+    ) -> list[Company]:
         data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+
         return [
             Company(
                 item["name"],
                 tuple(
-                    SourceUrl(entry["url"], entry.get("provider"))
+                    SourceUrl(
+                        entry["url"],
+                        entry.get("provider"),
+                    )
                     for entry in item.get("urls", [])
                 ),
                 item.get("priority", "NORMAL"),
@@ -78,7 +95,7 @@ class Engine:
         location = job.location.casefold()
 
         return (
-            any(word in text for word in settings.keywords)
+            any(keyword in text for keyword in settings.keywords)
             and (
                 job.remote
                 or any(place in location for place in settings.locations)
@@ -116,6 +133,9 @@ class Engine:
 
     def _save_state(self) -> None:
         settings.state_file.write_text(
-            json.dumps({"seen": sorted(self.seen)}, indent=2),
+            json.dumps(
+                {"seen": sorted(self.seen)},
+                indent=2,
+            ),
             encoding="utf-8",
         )
