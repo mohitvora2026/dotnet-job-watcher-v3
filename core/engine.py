@@ -20,13 +20,16 @@ class Engine:
         self.seen = self._load_state()
 
     def run(self) -> int:
-        matches = 0
+        matches = fetched = sources_checked = 0
         for company in self.load_companies():
             if not company.enabled:
                 continue
             for source in company.urls:
+                sources_checked += 1
                 try:
-                    for job in self.registry.fetch(company, source):
+                    jobs = self.registry.fetch(company, source)
+                    fetched += len(jobs)
+                    for job in jobs:
                         if self._matches(job) and job.identity not in self.seen:
                             matches += 1
                             if not settings.dry_run:
@@ -36,7 +39,8 @@ class Engine:
                     print(f"WARNING: {company.name} {source.url}: {error}")
         if not settings.dry_run:
             self._save_state()
-        self.notifier.send_status(matches, settings.dry_run)
+        print(f"INFO: Checked {sources_checked} source(s), fetched {fetched} job(s), found {matches} matching job(s)")
+        self.notifier.send_status(matches, settings.dry_run, fetched, sources_checked)
         return matches
 
     @staticmethod
@@ -60,4 +64,3 @@ class Engine:
 
     def _save_state(self) -> None:
         settings.state_file.write_text(json.dumps({"seen": sorted(self.seen)}, indent=2), encoding="utf-8")
-

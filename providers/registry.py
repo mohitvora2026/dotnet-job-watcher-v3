@@ -17,10 +17,13 @@ class ProviderRegistry:
         provider = source.provider or self._detect(source.url)
         endpoint, params = self._endpoint(provider, source.url)
         if endpoint is None:
+            print(f"INFO: Skipping unsupported source for {company.name}: {source.url}")
             return []
         data = self.http.get_json(endpoint, params=params)
         records = data if isinstance(data, list) else next((data.get(key, []) for key in ("jobs", "postings", "results") if isinstance(data.get(key), list)), [])
-        return [job for item in records if isinstance(item, dict) and (job := self._parse(provider, company.name, item))]
+        jobs = [job for item in records if isinstance(item, dict) and (job := self._parse(provider, company.name, item))]
+        print(f"INFO: Fetched {len(jobs)} job(s) for {company.name} via {provider}")
+        return jobs
 
     @staticmethod
     def _detect(url: str) -> str:
@@ -59,4 +62,3 @@ class ProviderRegistry:
         url = str(item.get("absolute_url") or item.get("hostedUrl") or item.get("applyUrl") or item.get("ref") or item.get("url") or "")
         text = f"{title} {location}"
         return Job(title, company, str(location), description, url, provider, "remote" in text.casefold(), item)
-
